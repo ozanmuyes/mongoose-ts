@@ -29,15 +29,16 @@ describe("message", () => {
 
     // Act
     //
-    const CREATED = await UserModel.create(USER);
+    await UserModel.create(USER);
 
     // Assert
     //
-    expect(Object.keys(UserModel.db.collections).includes("users")).toBe(true);
-
     const db = UserModel.db.collections;
+    expect(Object.keys(db).includes("users")).toBe(true);
+    // From here on we can use mongo shell syntax (i.e. `db.users.findOne(...)`)
+
     const FOUND = await db.users.findOne({ id: USER_ID });
-    expect(typeof FOUND === "object").toBe(true);
+    expect(typeof FOUND === "object").toBe(true); // check if a record has been found
 
     expect(FOUND.id === USER_ID).toBe(true);
     //
@@ -50,7 +51,6 @@ describe("message", () => {
     expect(docsCount).toBe(0);
   });
 
-  // eslint-disable-next-line jest/expect-expect
   it("should read an existing user", async () => {
     // Arrange
     //
@@ -61,7 +61,7 @@ describe("message", () => {
       email: `${USER_ID}_email`,
     };
 
-    // NOTE Be careful to insert data in the right structure when seeding
+    // NOTE Be careful when seeding, insert data in the right format
     await UserModel.collection.insertOne(USER);
 
     // Act
@@ -70,7 +70,9 @@ describe("message", () => {
 
     // Assert
     //
-    expect(typeof FOUND === "object").toBe(true);
+    expect(typeof FOUND === "object").toBe(true); // check if a record has been found
+
+    expect(FOUND.id).toBe(USER_ID);
     //
   });
 
