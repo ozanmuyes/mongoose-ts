@@ -21,23 +21,5 @@
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
     },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "dev",
-      "skipFiles": [
-        "<node_internals>/**",
-        "node_modules/**",
-      ],
-      "program": "${workspaceFolder}/src/index.ts",
-      "cwd": "${workspaceFolder}",
-      "envFile": "${workspaceFolder}/.vscode/.env",
-      "runtimeExecutable": "node",
-      "runtimeArgs": [
-        "--nolazy",
-        "-r", "@swc-node/sourcemap-support",
-        "-r", "@swc-node/register",
-      ],
-    }
   ]
 }
